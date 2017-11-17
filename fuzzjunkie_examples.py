@@ -39,13 +39,13 @@ from fuzzjunkie import CharNgram
 def main():
     """Examples of how to use the CharNgram class for fuzzy searches."""
 
-    ########################################################################
+    ############################################################################
     print(
         "Comparing an input string against a reference string, "
         + "getting score:" + os.linesep
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "testing"
     scoring_method = CharNgram.PERCENTAGE
@@ -57,7 +57,7 @@ def main():
         + str(percentage) + "% match"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "testing"
     scoring_method = CharNgram.MATCHES
@@ -69,7 +69,7 @@ def main():
         + str(matches) + " ngram matches"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "testing"
     scoring_method = CharNgram.PERCENTAGE
@@ -82,7 +82,7 @@ def main():
         + str(percentage) + "% match (ngram size " + str(ngram_size) + ")"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "testing"
     scoring_method = CharNgram.MATCHES
@@ -95,7 +95,7 @@ def main():
         + str(matches) + " ngram matches (ngram size " + str(ngram_size) + ")"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "test"
     scoring_method = CharNgram.PERCENTAGE
@@ -107,7 +107,7 @@ def main():
         + str(percentage) + "% match"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "test"
     scoring_method = CharNgram.MATCHES
@@ -119,7 +119,7 @@ def main():
         + str(matches) + " ngram matches"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "coding"
     scoring_method = CharNgram.PERCENTAGE
@@ -131,7 +131,7 @@ def main():
         + str(percentage) + "% match"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "coding"
     scoring_method = CharNgram.MATCHES
@@ -143,7 +143,7 @@ def main():
         + str(matches) + " ngram matches"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "hello"
     scoring_method = CharNgram.PERCENTAGE
@@ -155,7 +155,7 @@ def main():
         + str(percentage) + "% match"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "hello"
     scoring_method = CharNgram.MATCHES
@@ -167,7 +167,7 @@ def main():
         + str(matches) + " ngram matches"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "Fluorine"
     input_string = "floreen"
     scoring_method = CharNgram.PERCENTAGE
@@ -179,7 +179,7 @@ def main():
         + str(percentage) + "% match"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "Fluorine"
     input_string = "floreen"
     scoring_method = CharNgram.MATCHES
@@ -191,7 +191,7 @@ def main():
         + str(matches) + " ngram matches"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "Gandalf and Frodo walked across Middle-earth"
     input_string = "gondolf plus fredo took a walk on earth"
     scoring_method = CharNgram.PERCENTAGE
@@ -203,7 +203,7 @@ def main():
         + str(percentage) + "% match"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_string = "Gandalf and Frodo walked across Middle-earth"
     input_string = "gondolf plus fredo took a walk on earth"
     scoring_method = CharNgram.MATCHES
@@ -215,13 +215,13 @@ def main():
         + str(matches) + " ngram matches"
     )
 
-    ########################################################################
+    ############################################################################
     print(
         os.linesep + "Comparing an input string against a dict of reference strings, "
         + "getting ranked matches:" + os.linesep
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_strings = [
         "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
@@ -236,7 +236,7 @@ def main():
     )
     print(ranked_matches)
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_strings = [
         "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
@@ -251,13 +251,13 @@ def main():
     )
     print(ranked_matches)
 
-    ########################################################################
+    ############################################################################
     print(
         os.linesep + "Comparing an input string against a dict of reference strings, "
         + "getting best match:" + os.linesep
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_strings = [
         "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
@@ -272,7 +272,7 @@ def main():
         + best_match + " (best by % match)"
     )
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     reference_strings = [
         "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
