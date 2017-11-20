@@ -155,8 +155,9 @@ class CharNgram(object):
         """Compares a string against a list of strings.
 
         Compares an input string against a list of reference strings and returns
-        a dict reflecting how the input string scored against each reference
-        string. Follows the same scoring method behavior as compare_string().
+        a list of tuples reflecting how the input string scored against each
+        reference string. Follows the same scoring method behavior as compare
+        string().
 
         Args:
             arg_reference_list:     list

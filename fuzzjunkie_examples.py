@@ -217,7 +217,7 @@ def main():
 
     ############################################################################
     print(
-        os.linesep + "Comparing an input string against a dict of reference strings, "
+        os.linesep + "Comparing an input string against a list of reference strings, "
         + "getting ranked matches:" + os.linesep
     )
 
@@ -253,7 +253,7 @@ def main():
 
     ############################################################################
     print(
-        os.linesep + "Comparing an input string against a dict of reference strings, "
+        os.linesep + "Comparing an input string against a list of reference strings, "
         + "getting best match:" + os.linesep
     )
 
