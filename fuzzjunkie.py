@@ -1,6 +1,6 @@
 """fuzzjunkie.py
 
-fuzzjunkie v3.0 for Python 3
+fuzzjunkie v3.1 for Python 3
 
 fuzzjunkie provides easy-to-use methods for performing fuzzy string searches.
 Strings can be compared to other strings and receive a score based on percentage
@@ -42,6 +42,13 @@ You should have received a copy of the GNU General Public License
 along with fuzzjunkie.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+__version__ = "3.1"
+__status__ = "Production"
+__license__ = "GPL"
+__author__ = "Juan Irming"
+__copyright__ = "Juan Irming"
+__maintainer__ = "Juan Irming"
+
 # ------------------------------------------------------------------------------
 class CharNgram(object):
     """Provides methods for fuzzy string searches using character ngrams.
@@ -59,6 +66,28 @@ class CharNgram(object):
         MATCHES:    int
                     A convenience value for selecting the scoring method.
 
+        BY_STRING:  int
+                    A convenience value for selecting the return type.
+
+        BY_INDEX:   int
+                    A convenience value for selecting the return type.
+
+        ALL:        int
+                    A convenience value for selecting that all scores should be
+                    included in the compare_list() return.
+
+        TOP:        int
+                    A convenience value for selecting that only the top scores
+                    should be included in the compare_list() return.
+
+        MATCH:      int
+                    A convenience value for selecting the string/index of each
+                    tuple in the compare_list() return.
+
+        SCORE:      int
+                    A convenience value for selecting the score of each tuple in
+                    the compare_list() return.
+
     Author:
         Juan Irming
     """
@@ -67,6 +96,22 @@ class CharNgram(object):
     # Available scoring methods.
     PERCENTAGE = 0
     MATCHES = 1
+
+    # --------------------------------------------------------------------------
+    # Available compare_list() return types.
+    BY_STRING = 0
+    BY_INDEX = 1
+
+    # --------------------------------------------------------------------------
+    # The compare_list() scoring results to include in return.
+    ALL_SCORES = 0
+    TOP_SCORES = 1
+
+    # --------------------------------------------------------------------------
+    # Attributes to help find match string/index and score of each tuple in
+    # compare_list() return.
+    MATCH = 0
+    SCORE = 1
 
     # --------------------------------------------------------------------------
     __MIN_NGRAM_SIZE = 1        # The minimum valid ngram size.
@@ -80,11 +125,11 @@ class CharNgram(object):
     # --------------------------------------------------------------------------
     @classmethod
     def compare_string(
-            cls,
-            arg_reference_string,
-            arg_input_string,
-            arg_scoring_method=PERCENTAGE,
-            arg_ngram_size=__DEFAULT_NGRAM_SIZE
+        cls,
+        arg_reference_string,
+        arg_input_string,
+        arg_scoring_method=PERCENTAGE,
+        arg_ngram_size=__DEFAULT_NGRAM_SIZE
     ):
         """Compares two strings.
 
@@ -146,18 +191,20 @@ class CharNgram(object):
     # --------------------------------------------------------------------------
     @classmethod
     def compare_list(
-            cls,
-            arg_reference_list,
-            arg_input_string,
-            arg_scoring_method=PERCENTAGE,
-            arg_ngram_size=__DEFAULT_NGRAM_SIZE
+        cls,
+        arg_reference_list,
+        arg_input_string,
+        arg_scoring_method=PERCENTAGE,
+        arg_ngram_size=__DEFAULT_NGRAM_SIZE,
+        arg_return_type=BY_STRING,
+        arg_return_scores=TOP_SCORES
     ):
         """Compares a string against a list of strings.
 
         Compares an input string against a list of reference strings and returns
         a list of tuples reflecting how the input string scored against each
-        reference string. Follows the same scoring method behavior as compare
-        string().
+        reference string. Follows the same scoring method behavior as
+        compare_string().
 
         Args:
             arg_reference_list:     list
@@ -180,22 +227,58 @@ class CharNgram(object):
                                     Defaults to class attribute
                                     __DEFAULT_NGRAM_SIZE.
 
+            arg_return_type:        int (optional)
+                                    Desired return type. Valid values are 0
+                                    (passed-in reference strings will be first
+                                    element of each tuple) and 1 (passed-in
+                                    reference string indexes will be first
+                                    element of each tuple). Class attributes
+                                    BY_STRING and BY_INDEX are defined to match
+                                    these integers.
+                                    Defaults to attribute BY_STRING.
+
+            arg_return_scores:      int (optional)
+                                    Desired scores to include. All scores,
+                                    including zeroes, can be requested, or
+                                    simply the top ones. Class attributes
+                                    ALL_SCORES and TOP_SCORES are defined to
+                                    match these integers.
+                                    Defaults to attribute TOP_SCORES.
+
         Returns:
             list
-            A list of tuples containing a reference string and its corresponding
-            score. Sorted descending by score and ascending by key length.
+            A list of tuples containing a reference string (or its index) and
+            its corresponding score. String vs index return types are chosen
+            using arg_return_type. Sorted descending by score and ascending by
+            key length (the latter only in case of BY_STRING).
 
-            Example (PERCENTAGE):
+            Example (BY_STRING, PERCENTAGE):
             [
                 ("file.txt", 30.0),
                 ("path/to/another_file.txt", 10.0)
             ]
 
-            Example (MATCHES):
+            Example (BY_STRING, MATCHES):
             [
                 ("file.txt", 2),
                 ("path/to/another_file.txt", 2)
             ]
+
+            Example (BY_INDEX, PERCENTAGE):
+            [
+                (1, 30.0),
+                (0, 10.0)
+            ]
+
+            Example (BY_INDEX, MATCHES):
+            [
+                (1, 2),
+                (0, 2)
+            ]
+
+        Raises:
+            CharNgramException: if arg_reference_list is not populated or if
+            return type is invalid.
         """
 
         input_ngrams = cls.__generate_ngrams(
@@ -205,38 +288,74 @@ class CharNgram(object):
 
         scores = {}
 
-        for reference_string in arg_reference_list:
-            reference_ngrams = cls.__generate_ngrams(
-                reference_string,
-                arg_ngram_size
-            )
+        if arg_reference_list:
+            if arg_return_type == cls.BY_STRING:
+                for reference_string in arg_reference_list:
+                    reference_ngrams = cls.__generate_ngrams(
+                        reference_string,
+                        arg_ngram_size
+                    )
 
-            scores[reference_string] = cls.__compare_ngrams(
-                reference_ngrams,
-                input_ngrams,
-                arg_scoring_method
-            )
+                    scores[reference_string] = cls.__compare_ngrams(
+                        reference_ngrams,
+                        input_ngrams,
+                        arg_scoring_method
+                    )
 
-        sorted_scores = sorted(
-            scores.items(),
-            key=lambda x: (
-                x[1],           # Score
-                -len(x[0]),     # Key length
-                x[0]            # Key name
-            ),
-            reverse=True
-        )
+                    sorted_scores = sorted(
+                        scores.items(),
+                        key=lambda x: (
+                            x[cls.SCORE],
+                            -len(x[cls.MATCH]),
+                            x[cls.MATCH]
+                        ),
+                        reverse=True
+                    )
+            elif arg_return_type == cls.BY_INDEX:
+                for index, reference_string in enumerate(arg_reference_list):
+                    reference_ngrams = cls.__generate_ngrams(
+                        reference_string,
+                        arg_ngram_size
+                    )
 
-        return sorted_scores
+                    scores[index] = cls.__compare_ngrams(
+                        reference_ngrams,
+                        input_ngrams,
+                        arg_scoring_method
+                    )
+
+                    sorted_scores = sorted(
+                        scores.items(),
+                        key=lambda x: (
+                            x[cls.SCORE]
+                        ),
+                        reverse=True
+                    )
+            else:
+                raise CharNgramException("arg_return_type is invalid")
+
+            if arg_return_scores == cls.TOP_SCORES:
+                final_scores = [
+                    score for score in sorted_scores if (
+                        score[cls.SCORE]
+                        >= sorted_scores[0][cls.SCORE] 
+                    )
+                ]
+            else:
+                final_scores = sorted_scores
+
+            return final_scores
+        else:
+            raise CharNgramException("arg_reference_list is not populated")
 
     # --------------------------------------------------------------------------
     @classmethod
     def get_best_list_match(
-            cls,
-            arg_reference_list,
-            arg_input_string,
-            arg_scoring_method=PERCENTAGE,
-            arg_ngram_size=__DEFAULT_NGRAM_SIZE
+        cls,
+        arg_reference_list,
+        arg_input_string,
+        arg_scoring_method=PERCENTAGE,
+        arg_ngram_size=__DEFAULT_NGRAM_SIZE
     ):
         """Compares a string against a list of strings and returns the #1 match.
 
@@ -277,11 +396,13 @@ class CharNgram(object):
             arg_reference_list,
             arg_input_string,
             arg_scoring_method,
-            arg_ngram_size
+            arg_ngram_size,
+            cls.BY_STRING,
+            cls.ALL_SCORES
         )
 
-        if scores[0][1] > 0:
-            best_match = scores[0][0]
+        if scores[0][cls.SCORE] > 0:
+            best_match = scores[0][cls.MATCH]
         else:
             best_match = None
 
@@ -289,11 +410,73 @@ class CharNgram(object):
 
     # --------------------------------------------------------------------------
     @classmethod
+    def get_best_list_match_index(
+        cls,
+        arg_reference_list,
+        arg_input_string,
+        arg_scoring_method=PERCENTAGE,
+        arg_ngram_size=__DEFAULT_NGRAM_SIZE
+    ):
+        """Compares a string against a list of strings and returns the list
+        index of the #1 match.
+
+        Compares an input string against a list of reference strings and returns
+        the original list index of the best match.
+
+        Args:
+            arg_reference_list:     list
+                                    The list of reference strings to compare
+                                    against.
+
+            arg_input_string:       str
+                                    The input string to be compared.
+
+            arg_scoring_method:     int (optional)
+                                    Desired scoring method. Valid values are
+                                    0 (percentage match) and 1 (number of
+                                    matches). Class attributes PERCENTAGE and
+                                    MATCHES are defined to match these integers.
+                                    Defaults to attribute PERCENTAGE.
+
+            arg_ngram_size:         int (optional)
+                                    The ngram size to use. The minimum valid
+                                    value is 1.
+                                    Defaults to class attribute
+                                    __DEFAULT_NGRAM_SIZE.
+
+        Returns:
+            int|None
+            An integer pointing to the original list index of the top match
+            from the list of reference strings. Returns None if no reference
+            string scored greater than 0.
+
+            Example:
+            1
+        """
+
+        scores = cls.compare_list(
+            arg_reference_list,
+            arg_input_string,
+            arg_scoring_method,
+            arg_ngram_size,
+            cls.BY_INDEX,
+            cls.ALL_SCORES
+        )
+
+        if scores[0][cls.SCORE] > 0:
+            best_match_index = scores[0][cls.MATCH]
+        else:
+            best_match_index = None
+
+        return best_match_index
+
+    # --------------------------------------------------------------------------
+    @classmethod
     def __compare_ngrams(
-            cls,
-            arg_reference_ngrams,
-            arg_input_ngrams,
-            arg_scoring_method=PERCENTAGE
+        cls,
+        arg_reference_ngrams,
+        arg_input_ngrams,
+        arg_scoring_method=PERCENTAGE
     ):
         """Compares two dicts of ngrams.
 
@@ -370,9 +553,9 @@ class CharNgram(object):
     # --------------------------------------------------------------------------
     @classmethod
     def __generate_ngrams(
-            cls,
-            arg_string,
-            arg_ngram_size=__DEFAULT_NGRAM_SIZE
+        cls,
+        arg_string,
+        arg_ngram_size=__DEFAULT_NGRAM_SIZE
     ):
         """Generates a dict of lowercase ngrams from a string.
 
@@ -408,8 +591,8 @@ class CharNgram(object):
         """
 
         if (
-                arg_ngram_size in cls.__cache
-                and arg_string in cls.__cache[arg_ngram_size]
+            arg_ngram_size in cls.__cache
+            and arg_string in cls.__cache[arg_ngram_size]
         ):
 
             return cls.__cache[arg_ngram_size][arg_string]

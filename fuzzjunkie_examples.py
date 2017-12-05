@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
+
 """fuzzjunkie_examples.py
 
-fuzzjunkie v3.0 for Python 3
+fuzzjunkie v3.1 for Python 3
 
 In this module you'll find examples of how to make use of fuzzjunkie to perform
 fuzzy string searches in your own Python programs.
@@ -29,6 +31,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with fuzzjunkie.  If not, see <http://www.gnu.org/licenses/>.
 """
+
+__version__ = "3.1"
+__status__ = "Production"
+__license__ = "GPL"
+__author__ = "Juan Irming"
+__copyright__ = "Juan Irming"
+__maintainer__ = "Juan Irming"
 
 # ------------------------------------------------------------------------------
 import os
@@ -228,8 +237,39 @@ def main():
     ]
     input_string = "floreen"
     scoring_method = CharNgram.PERCENTAGE
+    ngram_size = 2
+    return_type = CharNgram.BY_STRING
+    return_scores = CharNgram.TOP_SCORES
     ranked_matches = CharNgram.compare_list(
-        reference_strings, input_string, scoring_method
+        reference_strings,
+        input_string,
+        scoring_method,
+        ngram_size,
+        return_type,
+        return_scores
+    )
+    print(
+        'Comparing "' + input_string + '" to reference strings (% match, top score(s) only):'
+    )
+    print(ranked_matches)
+
+    # --------------------------------------------------------------------------
+    reference_strings = [
+        "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
+        "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
+    ]
+    input_string = "floreen"
+    scoring_method = CharNgram.PERCENTAGE
+    ngram_size = 2
+    return_type = CharNgram.BY_STRING
+    return_scores = CharNgram.ALL_SCORES
+    ranked_matches = CharNgram.compare_list(
+        reference_strings,
+        input_string,
+        scoring_method,
+        ngram_size,
+        return_type,
+        return_scores
     )
     print(
         'Comparing "' + input_string + '" to reference strings (% match):'
@@ -243,11 +283,65 @@ def main():
     ]
     input_string = "floreen"
     scoring_method = CharNgram.MATCHES
+    ngram_size = 2
+    return_type = CharNgram.BY_STRING
+    return_scores = CharNgram.ALL_SCORES
     ranked_matches = CharNgram.compare_list(
-        reference_strings, input_string, scoring_method
+        reference_strings,
+        input_string,
+        scoring_method,
+        ngram_size,
+        return_type,
+        return_scores
     )
     print(
         'Comparing "' + input_string + '" to reference strings (# ngram matches):'
+    )
+    print(ranked_matches)
+
+    # --------------------------------------------------------------------------
+    reference_strings = [
+        "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
+        "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
+    ]
+    input_string = "floreen"
+    scoring_method = CharNgram.PERCENTAGE
+    ngram_size = 2
+    return_type = CharNgram.BY_INDEX
+    return_scores = CharNgram.ALL_SCORES
+    ranked_matches = CharNgram.compare_list(
+        reference_strings,
+        input_string,
+        scoring_method,
+        ngram_size,
+        return_type,
+        return_scores
+    )
+    print(
+        'Comparing "' + input_string + '" to reference strings (% match by index):'
+    )
+    print(ranked_matches)
+
+    # --------------------------------------------------------------------------
+    reference_strings = [
+        "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
+        "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
+    ]
+    input_string = "floreen"
+    scoring_method = CharNgram.MATCHES
+    ngram_size = 2
+    return_type = CharNgram.BY_INDEX
+    return_scores = CharNgram.ALL_SCORES
+    ranked_matches = CharNgram.compare_list(
+        reference_strings,
+        input_string,
+        scoring_method,
+        ngram_size,
+        return_type,
+        return_scores
+    )
+    print(
+        'Comparing "' + input_string + '" to reference strings (# ngram matches by index):'
     )
     print(ranked_matches)
 
@@ -285,6 +379,42 @@ def main():
     print(
         'Comparing "' + input_string + '" to reference strings: '
         + best_match + " (best by # ngram matches)"
+    )
+
+    ############################################################################
+    print(
+        os.linesep + "Comparing an input string against a list of reference strings, "
+        + "getting best match index:" + os.linesep
+    )
+
+    # --------------------------------------------------------------------------
+    reference_strings = [
+        "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
+        "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
+    ]
+    input_string = "floreen"
+    scoring_method = CharNgram.PERCENTAGE
+    best_match_index = CharNgram.get_best_list_match_index(
+        reference_strings, input_string, scoring_method
+    )
+    print(
+        'Comparing "' + input_string + '" to reference strings: '
+        + str(best_match_index) + " (index of best by % match)"
+    )
+
+    # --------------------------------------------------------------------------
+    reference_strings = [
+        "Hydrogen", "Helium", "Lithium", "Beryllium", "Boron",
+        "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
+    ]
+    input_string = "floreen"
+    scoring_method = CharNgram.MATCHES
+    best_match_index = CharNgram.get_best_list_match_index(
+        reference_strings, input_string, scoring_method
+    )
+    print(
+        'Comparing "' + input_string + '" to reference strings: '
+        + str(best_match_index) + " (index of best by # ngram matches)"
     )
 
 if __name__ == "__main__":

@@ -1,6 +1,8 @@
-"""fuzzjunkie_tests.py
+#!/usr/bin/env python3
 
-fuzzjunkie v3.0 for Python 3
+"""fuzzjunkie_unittest.py
+
+fuzzjunkie v3.1 for Python 3
 
 Unit tests for fuzzjunkie.py.
 
@@ -26,6 +28,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with fuzzjunkie.  If not, see <http://www.gnu.org/licenses/>.
 """
+
+__version__ = "3.1"
+__status__ = "Production"
+__license__ = "GPL"
+__author__ = "Juan Irming"
+__copyright__ = "Juan Irming"
+__maintainer__ = "Juan Irming"
 
 # ------------------------------------------------------------------------------
 import unittest
@@ -445,7 +454,10 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.PERCENTAGE,
+                2,
+                CharNgram.BY_STRING,
+                CharNgram.ALL_SCORES
             ),
             [
                 ("Fluorine", 2 / 7 * 100),
@@ -476,7 +488,10 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.MATCHES, 2
+                CharNgram.MATCHES,
+                2,
+                CharNgram.BY_STRING,
+                CharNgram.ALL_SCORES
             ),
             [
                 ("Fluorine", 2),
@@ -491,6 +506,196 @@ class TestCharNgramMethods(unittest.TestCase):
                 ("Beryllium", 0)
             ]
         )
+
+        self.assertEqual(
+            CharNgram.compare_list(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "floreen",
+                CharNgram.PERCENTAGE,
+                2,
+                CharNgram.BY_INDEX,
+                CharNgram.ALL_SCORES
+            ),
+            [
+                (8, 2 / 7 * 100),
+                (4, 1 / 4 * 100),
+                (7, 1 / 5 * 100),
+                (0, 1 / 7 * 100),
+                (6, 1 / 7 * 100),
+                (1, 0),
+                (2, 0),
+                (3, 0),
+                (5, 0),
+                (9, 0)
+            ]
+        )
+
+        self.assertEqual(
+            CharNgram.compare_list(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "floreen",
+                CharNgram.MATCHES,
+                2,
+                CharNgram.BY_INDEX,
+                CharNgram.ALL_SCORES
+            ),
+            [
+                (8, 2),
+                (0, 1),
+                (4, 1),
+                (6, 1),
+                (7, 1),
+                (1, 0),
+                (2, 0),
+                (3, 0),
+                (5, 0),
+                (9, 0)
+            ]
+        )
+
+        self.assertEqual(
+            CharNgram.compare_list(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "floreen",
+                CharNgram.PERCENTAGE,
+                2,
+                CharNgram.BY_STRING,
+                CharNgram.TOP_SCORES
+            ),
+            [
+                ("Fluorine", 2 / 7 * 100)
+            ]
+        )
+
+        self.assertEqual(
+            CharNgram.compare_list(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "floreen",
+                CharNgram.MATCHES,
+                2,
+                CharNgram.BY_STRING,
+                CharNgram.TOP_SCORES
+            ),
+            [
+                ("Fluorine", 2)
+            ]
+        )
+
+        self.assertEqual(
+            CharNgram.compare_list(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "um",
+                CharNgram.MATCHES,
+                2,
+                CharNgram.BY_STRING,
+                CharNgram.TOP_SCORES
+            ),
+            [
+                ("Helium", 1),
+                ("Lithium", 1),
+                ("Beryllium", 1)
+            ]
+        )
+
+        with self.assertRaises(CharNgramException):
+            CharNgram.compare_list(
+                [
+                ],
+                "floreen",
+                CharNgram.PERCENTAGE,
+                2,
+                CharNgram.BY_STRING,
+                CharNgram.ALL_SCORES
+            ),
+            [
+                ("Fluorine", 2 / 7 * 100),
+                ("Boron", 1 / 4 * 100),
+                ("Oxygen", 1 / 5 * 100),
+                ("Nitrogen", 1 / 7 * 100),
+                ("Hydrogen", 1 / 7 * 100),
+                ("Neon", 0),
+                ("Helium", 0),
+                ("Carbon", 0),
+                ("Lithium", 0),
+                ("Beryllium", 0)
+            ]
+
+        with self.assertRaises(CharNgramException):
+            CharNgram.compare_list(
+                None,
+                "floreen",
+                CharNgram.MATCHES,
+                2,
+                CharNgram.BY_STRING,
+                CharNgram.ALL_SCORES
+            ),
+            [
+                ("Fluorine", 2),
+                ("Boron", 1),
+                ("Oxygen", 1),
+                ("Nitrogen", 1),
+                ("Hydrogen", 1),
+                ("Neon", 0),
+                ("Helium", 0),
+                ("Carbon", 0),
+                ("Lithium", 0),
+                ("Beryllium", 0)
+            ]
 
     # --------------------------------------------------------------------------
     def test_get_best_list_match(self):
@@ -560,6 +765,92 @@ class TestCharNgramMethods(unittest.TestCase):
 
         self.assertEqual(
             CharNgram.get_best_list_match(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "zazozuzezizy",
+                CharNgram.MATCHES, 2
+            ),
+            None
+        )
+
+    # --------------------------------------------------------------------------
+    def test_get_best_list_match_index(self):
+        """Tests for CharNgram.get_best_list_match."""
+
+        self.maxDiff = None
+
+        self.assertEqual(
+            CharNgram.get_best_list_match_index(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "floreen",
+                CharNgram.PERCENTAGE, 2
+            ),
+            8
+        )
+
+        self.assertEqual(
+            CharNgram.get_best_list_match_index(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "floreen",
+                CharNgram.MATCHES, 2
+            ),
+            8
+        )
+
+        self.assertEqual(
+            CharNgram.get_best_list_match_index(
+                [
+                    "Hydrogen",
+                    "Helium",
+                    "Lithium",
+                    "Beryllium",
+                    "Boron",
+                    "Carbon",
+                    "Nitrogen",
+                    "Oxygen",
+                    "Fluorine",
+                    "Neon"
+                ],
+                "zazozuzezizy",
+                CharNgram.PERCENTAGE, 2
+            ),
+            None
+        )
+
+        self.assertEqual(
+            CharNgram.get_best_list_match_index(
                 [
                     "Hydrogen",
                     "Helium",
