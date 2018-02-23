@@ -522,7 +522,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.PERCENTAGE,
+                CharNgram.Scoring.PERCENTAGE,
                 2,
                 CharNgram.BY_INDEX,
                 CharNgram.ALL_SCORES
@@ -556,7 +556,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.MATCHES,
+                CharNgram.Scoring.MATCHES,
                 2,
                 CharNgram.BY_INDEX,
                 CharNgram.ALL_SCORES
@@ -590,7 +590,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.PERCENTAGE,
+                CharNgram.Scoring.PERCENTAGE,
                 2,
                 CharNgram.BY_STRING,
                 CharNgram.TOP_SCORES
@@ -615,7 +615,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.MATCHES,
+                CharNgram.Scoring.MATCHES,
                 2,
                 CharNgram.BY_STRING,
                 CharNgram.TOP_SCORES
@@ -640,7 +640,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "um",
-                CharNgram.MATCHES,
+                CharNgram.Scoring.MATCHES,
                 2,
                 CharNgram.BY_STRING,
                 CharNgram.TOP_SCORES
@@ -657,7 +657,7 @@ class TestCharNgramMethods(unittest.TestCase):
                 [
                 ],
                 "floreen",
-                CharNgram.PERCENTAGE,
+                CharNgram.Scoring.PERCENTAGE,
                 2,
                 CharNgram.BY_STRING,
                 CharNgram.ALL_SCORES
@@ -679,7 +679,7 @@ class TestCharNgramMethods(unittest.TestCase):
             CharNgram.compare_list(
                 None,
                 "floreen",
-                CharNgram.MATCHES,
+                CharNgram.Scoring.MATCHES,
                 2,
                 CharNgram.BY_STRING,
                 CharNgram.ALL_SCORES
@@ -804,7 +804,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             8
         )
@@ -824,7 +824,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             8
         )
@@ -844,7 +844,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "zazozuzezizy",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             None
         )
@@ -864,7 +864,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "zazozuzezizy",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             None
         )

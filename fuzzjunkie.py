@@ -416,7 +416,7 @@ class CharNgram(object):
         cls,
         arg_reference_list,
         arg_input_string,
-        arg_scoring_method=PERCENTAGE,
+        arg_scoring_method=Scoring.PERCENTAGE,
         arg_ngram_size=__DEFAULT_NGRAM_SIZE
     ):
         """Compares a string against a list of strings and returns the list
@@ -435,10 +435,10 @@ class CharNgram(object):
 
             arg_scoring_method:     int (optional)
                                     Desired scoring method. Valid values are
-                                    0 (percentage match) and 1 (number of
-                                    matches). Class attributes PERCENTAGE and
-                                    MATCHES are defined to match these integers.
-                                    Defaults to attribute PERCENTAGE.
+                                    Scoring.PERCENTAGE (percentage match) and
+                                    Scoring.MATCHES (number of matches).
+                                    Defaults to class attribute
+                                    Scoring.PERCENTAGE.
 
             arg_ngram_size:         int (optional)
                                     The ngram size to use. The minimum valid

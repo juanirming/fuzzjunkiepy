@@ -259,7 +259,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     ngram_size = 2
     return_type = CharNgram.BY_STRING
     return_scores = CharNgram.ALL_SCORES
@@ -305,7 +305,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     ngram_size = 2
     return_type = CharNgram.BY_INDEX
     return_scores = CharNgram.ALL_SCORES
@@ -328,7 +328,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     ngram_size = 2
     return_type = CharNgram.BY_INDEX
     return_scores = CharNgram.ALL_SCORES
@@ -393,7 +393,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     best_match_index = CharNgram.get_best_list_match_index(
         reference_strings, input_string, scoring_method
     )
@@ -408,7 +408,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     best_match_index = CharNgram.get_best_list_match_index(
         reference_strings, input_string, scoring_method
     )
