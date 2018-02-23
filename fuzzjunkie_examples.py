@@ -1,6 +1,6 @@
 """fuzzjunkie_examples.py
 
-fuzzjunkie v3.0 for Python 3
+fuzzjunkie v3.0.1 for Python 3
 
 In this module you'll find examples of how to make use of fuzzjunkie to perform
 fuzzy string searches in your own Python programs.
@@ -48,7 +48,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "testing"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     percentage = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -60,7 +60,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "testing"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     matches = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -72,7 +72,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "testing"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     ngram_size = 3
     percentage = CharNgram.compare_string(
         reference_string, input_string, scoring_method, ngram_size
@@ -85,7 +85,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "testing"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     ngram_size = 3
     matches = CharNgram.compare_string(
         reference_string, input_string, scoring_method, ngram_size
@@ -98,7 +98,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "test"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     percentage = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -110,7 +110,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "test"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     matches = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -122,7 +122,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "coding"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     percentage = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -134,7 +134,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "coding"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     matches = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -146,7 +146,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "hello"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     percentage = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -158,7 +158,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "testing"
     input_string = "hello"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     matches = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -170,7 +170,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "Fluorine"
     input_string = "floreen"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     percentage = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -182,7 +182,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "Fluorine"
     input_string = "floreen"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     matches = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -194,7 +194,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "Gandalf and Frodo walked across Middle-earth"
     input_string = "gondolf plus fredo took a walk on earth"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     percentage = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -206,7 +206,7 @@ def main():
     # --------------------------------------------------------------------------
     reference_string = "Gandalf and Frodo walked across Middle-earth"
     input_string = "gondolf plus fredo took a walk on earth"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     matches = CharNgram.compare_string(
         reference_string, input_string, scoring_method
     )
@@ -227,7 +227,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     ranked_matches = CharNgram.compare_list(
         reference_strings, input_string, scoring_method
     )
@@ -242,7 +242,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     ranked_matches = CharNgram.compare_list(
         reference_strings, input_string, scoring_method
     )
@@ -263,7 +263,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.PERCENTAGE
+    scoring_method = CharNgram.Scoring.PERCENTAGE
     best_match = CharNgram.get_best_list_match(
         reference_strings, input_string, scoring_method
     )
@@ -278,7 +278,7 @@ def main():
         "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon"
     ]
     input_string = "floreen"
-    scoring_method = CharNgram.MATCHES
+    scoring_method = CharNgram.Scoring.MATCHES
     best_match = CharNgram.get_best_list_match(
         reference_strings, input_string, scoring_method
     )
