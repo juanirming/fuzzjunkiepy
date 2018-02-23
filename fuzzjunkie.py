@@ -1,6 +1,6 @@
 """fuzzjunkie.py
 
-fuzzjunkie v3.1 for Python 3
+fuzzjunkie v3.0.1 for Python 3
 
 fuzzjunkie provides easy-to-use methods for performing fuzzy string searches.
 Strings can be compared to other strings and receive a score based on percentage
@@ -50,6 +50,9 @@ __copyright__ = "Juan Irming"
 __maintainer__ = "Juan Irming"
 
 # ------------------------------------------------------------------------------
+from enum import Enum
+
+# ------------------------------------------------------------------------------
 class CharNgram(object):
     """Provides methods for fuzzy string searches using character ngrams.
 
@@ -60,11 +63,11 @@ class CharNgram(object):
     absolute number of matches.
 
     Attributes:
-        PERCENTAGE: int
-                    A convenience value for selecting the scoring method.
+        Scoring.PERCENTAGE: Enum
+            A convenience value for selecting the scoring method.
 
-        MATCHES:    int
-                    A convenience value for selecting the scoring method.
+        Scoring.MATCHES: Enum
+            A convenience value for selecting the scoring method.
 
         BY_STRING:  int
                     A convenience value for selecting the return type.
@@ -94,8 +97,7 @@ class CharNgram(object):
 
     # --------------------------------------------------------------------------
     # Available scoring methods.
-    PERCENTAGE = 0
-    MATCHES = 1
+    Scoring = Enum("Scoring", "PERCENTAGE MATCHES")
 
     # --------------------------------------------------------------------------
     # Available compare_list() return types.
@@ -128,7 +130,7 @@ class CharNgram(object):
         cls,
         arg_reference_string,
         arg_input_string,
-        arg_scoring_method=PERCENTAGE,
+        arg_scoring_method=Scoring.PERCENTAGE,
         arg_ngram_size=__DEFAULT_NGRAM_SIZE
     ):
         """Compares two strings.
@@ -147,10 +149,10 @@ class CharNgram(object):
 
             arg_scoring_method:     int (optional)
                                     Desired scoring method. Valid values are
-                                    0 (percentage match) and 1 (number of
-                                    matches). Class attributes PERCENTAGE and
-                                    MATCHES are defined to match these integers.
-                                    Defaults to attribute PERCENTAGE.
+                                    Scoring.PERCENTAGE (percentage match) and
+                                    Scoring.MATCHES (number of matches).
+                                    Defaults to class attribute
+                                    Scoring.PERCENTAGE.
 
             arg_ngram_size:         int (optional)
                                     The ngram size to use. The minimum valid
@@ -161,12 +163,12 @@ class CharNgram(object):
         Returns:
             number
             A number reflecting the result of the comparison (float for
-            PERCENTAGE, int for MATCHES).
+            Scoring.PERCENTAGE, int for Scoring.MATCHES).
 
-            Example (PERCENTAGE):
+            Example (Scoring.PERCENTAGE):
             50.0
 
-            Example (MATCHES):
+            Example (Scoring.MATCHES):
             3
         """
 
@@ -194,7 +196,7 @@ class CharNgram(object):
         cls,
         arg_reference_list,
         arg_input_string,
-        arg_scoring_method=PERCENTAGE,
+        arg_scoring_method=Scoring.PERCENTAGE,
         arg_ngram_size=__DEFAULT_NGRAM_SIZE,
         arg_return_type=BY_STRING,
         arg_return_scores=TOP_SCORES
@@ -216,10 +218,10 @@ class CharNgram(object):
 
             arg_scoring_method:     int (optional)
                                     Desired scoring method. Valid values are
-                                    0 (percentage match) and 1 (number of
-                                    matches). Class attributes PERCENTAGE and
-                                    MATCHES are defined to match these integers.
-                                    Defaults to attribute PERCENTAGE.
+                                    Scoring.PERCENTAGE (percentage match) and
+                                    Scoring.MATCHES (number of matches).
+                                    Defaults to class attribute
+                                    Scoring.PERCENTAGE.
 
             arg_ngram_size:         int (optional)
                                     The ngram size to use. The minimum valid
@@ -252,25 +254,25 @@ class CharNgram(object):
             using arg_return_type. Sorted descending by score and ascending by
             key length (the latter only in case of BY_STRING).
 
-            Example (BY_STRING, PERCENTAGE):
+            Example (BY_STRING, Scoring.PERCENTAGE):
             [
                 ("file.txt", 30.0),
                 ("path/to/another_file.txt", 10.0)
             ]
 
-            Example (BY_STRING, MATCHES):
+            Example (BY_STRING, Scoring.MATCHES):
             [
                 ("file.txt", 2),
                 ("path/to/another_file.txt", 2)
             ]
 
-            Example (BY_INDEX, PERCENTAGE):
+            Example (BY_INDEX, Scoring.PERCENTAGE):
             [
                 (1, 30.0),
                 (0, 10.0)
             ]
 
-            Example (BY_INDEX, MATCHES):
+            Example (BY_INDEX, Scoring.MATCHES):
             [
                 (1, 2),
                 (0, 2)
@@ -351,11 +353,11 @@ class CharNgram(object):
     # --------------------------------------------------------------------------
     @classmethod
     def get_best_list_match(
-        cls,
-        arg_reference_list,
-        arg_input_string,
-        arg_scoring_method=PERCENTAGE,
-        arg_ngram_size=__DEFAULT_NGRAM_SIZE
+            cls,
+            arg_reference_list,
+            arg_input_string,
+            arg_scoring_method=Scoring.PERCENTAGE,
+            arg_ngram_size=__DEFAULT_NGRAM_SIZE
     ):
         """Compares a string against a list of strings and returns the #1 match.
 
@@ -372,10 +374,10 @@ class CharNgram(object):
 
             arg_scoring_method:     int (optional)
                                     Desired scoring method. Valid values are
-                                    0 (percentage match) and 1 (number of
-                                    matches). Class attributes PERCENTAGE and
-                                    MATCHES are defined to match these integers.
-                                    Defaults to attribute PERCENTAGE.
+                                    Scoring.PERCENTAGE (percentage match) and
+                                    Scoring.MATCHES (number of matches).
+                                    Defaults to class attribute
+                                    Scoring.PERCENTAGE.
 
             arg_ngram_size:         int (optional)
                                     The ngram size to use. The minimum valid
@@ -473,10 +475,10 @@ class CharNgram(object):
     # --------------------------------------------------------------------------
     @classmethod
     def __compare_ngrams(
-        cls,
-        arg_reference_ngrams,
-        arg_input_ngrams,
-        arg_scoring_method=PERCENTAGE
+            cls,
+            arg_reference_ngrams,
+            arg_input_ngrams,
+            arg_scoring_method=Scoring.PERCENTAGE
     ):
         """Compares two dicts of ngrams.
 
@@ -495,20 +497,20 @@ class CharNgram(object):
 
             arg_scoring_method:     int (optional)
                                     Desired scoring method. Valid values are
-                                    0 (percentage match) and 1 (number of
-                                    matches). Class attributes PERCENTAGE and
-                                    MATCHES are defined to match these integers.
-                                    Defaults to attribute PERCENTAGE.
+                                    Scoring.PERCENTAGE (percentage match) and
+                                    Scoring.MATCHES (number of matches).
+                                    Defaults to class attribute
+                                    Scoring.PERCENTAGE.
 
         Returns:
             number
             A number reflecting the result of the comparison (float for
-            PERCENTAGE, int for MATCHES).
+            Scoring.PERCENTAGE, int for Scoring.MATCHES).
 
-            Example (PERCENTAGE):
+            Example (Scoring.PERCENTAGE):
             50.0
 
-            Example (MATCHES):
+            Example (Scoring.MATCHES):
             3
 
         Raises:
@@ -539,11 +541,11 @@ class CharNgram(object):
                         "arg_input_ngrams is not populated"
                     )
 
-            if arg_scoring_method == cls.PERCENTAGE:
+            if arg_scoring_method == cls.Scoring.PERCENTAGE:
                 percentage_match = (matches / max_matches) * 100
 
                 return percentage_match
-            elif arg_scoring_method == cls.MATCHES:
+            elif arg_scoring_method == cls.Scoring.MATCHES:
                 return matches
             else:
                 raise CharNgramException("arg_scoring_method is invalid")

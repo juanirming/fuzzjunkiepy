@@ -58,7 +58,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, 0
+                CharNgram.Scoring.PERCENTAGE, 0
             ),
             100.0
         )
@@ -66,7 +66,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.MATCHES, 0
+                CharNgram.Scoring.MATCHES, 0
             ),
             7
         )
@@ -74,7 +74,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, 1
+                CharNgram.Scoring.PERCENTAGE, 1
             ),
             100.0
         )
@@ -82,7 +82,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.MATCHES, 1
+                CharNgram.Scoring.MATCHES, 1
             ),
             7
         )
@@ -90,7 +90,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "test",
-                CharNgram.PERCENTAGE, 1
+                CharNgram.Scoring.PERCENTAGE, 1
             ),
             4 / 7 * 100
         )
@@ -98,7 +98,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "test",
-                CharNgram.MATCHES, 1
+                CharNgram.Scoring.MATCHES, 1
             ),
             4
         )
@@ -106,7 +106,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "t",
-                CharNgram.PERCENTAGE, 1
+                CharNgram.Scoring.PERCENTAGE, 1
             ),
             1 / 7 * 100
         )
@@ -114,7 +114,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "t",
-                CharNgram.MATCHES, 1
+                CharNgram.Scoring.MATCHES, 1
             ),
             1
         )
@@ -122,7 +122,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             100.0
         )
@@ -130,7 +130,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             6
         )
@@ -138,7 +138,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "test",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             50.0
         )
@@ -146,7 +146,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "test",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             3
         )
@@ -154,7 +154,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "inst",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             1 / 3 * 100
         )
@@ -162,7 +162,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "inst",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             2
         )
@@ -170,7 +170,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "st",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             1 / 6 * 100
         )
@@ -178,7 +178,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "st",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             1
         )
@@ -186,7 +186,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "tEsTiNg", "TeSt",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             50.0
         )
@@ -194,7 +194,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "TeStInG", "tEsT",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             3
         )
@@ -202,7 +202,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "t",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             0.0
         )
@@ -210,7 +210,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "t",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             0
         )
@@ -218,7 +218,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             0.0
         )
@@ -226,7 +226,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             0
         )
@@ -234,7 +234,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "", "test",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             0.0
         )
@@ -242,7 +242,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "", "test",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             0
         )
@@ -250,7 +250,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "", "",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             0.0
         )
@@ -258,7 +258,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "", "",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             0
         )
@@ -266,7 +266,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "t", "t",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             100.0
         )
@@ -274,7 +274,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "t", "t",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             1
         )
@@ -282,7 +282,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "fail",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             0.0
         )
@@ -290,7 +290,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "fail",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             0
         )
@@ -298,7 +298,7 @@ class TestCharNgramMethods(unittest.TestCase):
         with self.assertRaises(CharNgramException):
             CharNgram.compare_string(
                 1337, 1337,
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             )
 
         with self.assertRaises(CharNgramException):
@@ -316,31 +316,31 @@ class TestCharNgramMethods(unittest.TestCase):
         with self.assertRaises(CharNgramException):
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, "x"
+                CharNgram.Scoring.PERCENTAGE, "x"
             )
 
         with self.assertRaises(CharNgramException):
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, None
+                CharNgram.Scoring.PERCENTAGE, None
             )
 
         with self.assertRaises(CharNgramException):
             CharNgram.compare_string(
                 None, "testing",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             )
 
         with self.assertRaises(CharNgramException):
             CharNgram.compare_string(
                 "testing", None,
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             )
 
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, 3
+                CharNgram.Scoring.PERCENTAGE, 3
             ),
             100.0
         )
@@ -348,7 +348,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.MATCHES, 3
+                CharNgram.Scoring.MATCHES, 3
             ),
             5
         )
@@ -356,7 +356,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "test",
-                CharNgram.PERCENTAGE, 3
+                CharNgram.Scoring.PERCENTAGE, 3
             ),
             2 / 5 * 100
         )
@@ -364,7 +364,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "test",
-                CharNgram.MATCHES, 3
+                CharNgram.Scoring.MATCHES, 3
             ),
             2
         )
@@ -372,7 +372,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "te",
-                CharNgram.PERCENTAGE, 3
+                CharNgram.Scoring.PERCENTAGE, 3
             ),
             0.0
         )
@@ -380,7 +380,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "te",
-                CharNgram.MATCHES, 3
+                CharNgram.Scoring.MATCHES, 3
             ),
             0
         )
@@ -388,7 +388,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, 7
+                CharNgram.Scoring.PERCENTAGE, 7
             ),
             100.0
         )
@@ -396,7 +396,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.MATCHES, 7
+                CharNgram.Scoring.MATCHES, 7
             ),
             1
         )
@@ -404,7 +404,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, 8
+                CharNgram.Scoring.PERCENTAGE, 8
             ),
             100.0
         )
@@ -412,7 +412,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.MATCHES, 8
+                CharNgram.Scoring.MATCHES, 8
             ),
             1
         )
@@ -420,7 +420,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.PERCENTAGE, 100
+                CharNgram.Scoring.PERCENTAGE, 100
             ),
             100.0
         )
@@ -428,7 +428,7 @@ class TestCharNgramMethods(unittest.TestCase):
         self.assertEqual(
             CharNgram.compare_string(
                 "testing", "testing",
-                CharNgram.MATCHES, 100
+                CharNgram.Scoring.MATCHES, 100
             ),
             1
         )
@@ -454,7 +454,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.PERCENTAGE,
+                CharNgram.Scoring.PERCENTAGE,
                 2,
                 CharNgram.BY_STRING,
                 CharNgram.ALL_SCORES
@@ -488,7 +488,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.MATCHES,
+                CharNgram.Scoring.MATCHES,
                 2,
                 CharNgram.BY_STRING,
                 CharNgram.ALL_SCORES
@@ -718,7 +718,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             "Fluorine"
         )
@@ -738,7 +738,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "floreen",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             "Fluorine"
         )
@@ -758,7 +758,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "zazozuzezizy",
-                CharNgram.PERCENTAGE, 2
+                CharNgram.Scoring.PERCENTAGE, 2
             ),
             None
         )
@@ -778,7 +778,7 @@ class TestCharNgramMethods(unittest.TestCase):
                     "Neon"
                 ],
                 "zazozuzezizy",
-                CharNgram.MATCHES, 2
+                CharNgram.Scoring.MATCHES, 2
             ),
             None
         )
