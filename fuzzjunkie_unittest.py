@@ -456,8 +456,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "floreen",
                 CharNgram.Scoring.PERCENTAGE,
                 2,
-                CharNgram.BY_STRING,
-                CharNgram.ALL_SCORES
+                CharNgram.ReturnBy.STRING,
+                CharNgram.ReturnScope.ALL
             ),
             [
                 ("Fluorine", 2 / 7 * 100),
@@ -490,8 +490,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "floreen",
                 CharNgram.Scoring.MATCHES,
                 2,
-                CharNgram.BY_STRING,
-                CharNgram.ALL_SCORES
+                CharNgram.ReturnBy.STRING,
+                CharNgram.ReturnScope.ALL
             ),
             [
                 ("Fluorine", 2),
@@ -524,8 +524,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "floreen",
                 CharNgram.Scoring.PERCENTAGE,
                 2,
-                CharNgram.BY_INDEX,
-                CharNgram.ALL_SCORES
+                CharNgram.ReturnBy.INDEX,
+                CharNgram.ReturnScope.ALL
             ),
             [
                 (8, 2 / 7 * 100),
@@ -558,8 +558,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "floreen",
                 CharNgram.Scoring.MATCHES,
                 2,
-                CharNgram.BY_INDEX,
-                CharNgram.ALL_SCORES
+                CharNgram.ReturnBy.INDEX,
+                CharNgram.ReturnScope.ALL
             ),
             [
                 (8, 2),
@@ -592,8 +592,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "floreen",
                 CharNgram.Scoring.PERCENTAGE,
                 2,
-                CharNgram.BY_STRING,
-                CharNgram.TOP_SCORES
+                CharNgram.ReturnBy.STRING,
+                CharNgram.ReturnScope.TOP
             ),
             [
                 ("Fluorine", 2 / 7 * 100)
@@ -617,8 +617,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "floreen",
                 CharNgram.Scoring.MATCHES,
                 2,
-                CharNgram.BY_STRING,
-                CharNgram.TOP_SCORES
+                CharNgram.ReturnBy.STRING,
+                CharNgram.ReturnScope.TOP
             ),
             [
                 ("Fluorine", 2)
@@ -642,8 +642,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "um",
                 CharNgram.Scoring.MATCHES,
                 2,
-                CharNgram.BY_STRING,
-                CharNgram.TOP_SCORES
+                CharNgram.ReturnBy.STRING,
+                CharNgram.ReturnScope.TOP
             ),
             [
                 ("Helium", 1),
@@ -659,8 +659,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "floreen",
                 CharNgram.Scoring.PERCENTAGE,
                 2,
-                CharNgram.BY_STRING,
-                CharNgram.ALL_SCORES
+                CharNgram.ReturnBy.STRING,
+                CharNgram.ReturnScope.ALL
             ),
             [
                 ("Fluorine", 2 / 7 * 100),
@@ -681,8 +681,8 @@ class TestCharNgramMethods(unittest.TestCase):
                 "floreen",
                 CharNgram.Scoring.MATCHES,
                 2,
-                CharNgram.BY_STRING,
-                CharNgram.ALL_SCORES
+                CharNgram.ReturnBy.STRING,
+                CharNgram.ReturnScope.ALL
             ),
             [
                 ("Fluorine", 2),

@@ -238,8 +238,8 @@ def main():
     input_string = "floreen"
     scoring_method = CharNgram.Scoring.PERCENTAGE
     ngram_size = 2
-    return_type = CharNgram.BY_STRING
-    return_scores = CharNgram.TOP_SCORES
+    return_type = CharNgram.ReturnBy.STRING
+    return_scores = CharNgram.ReturnScope.TOP
     ranked_matches = CharNgram.compare_list(
         reference_strings,
         input_string,
@@ -261,8 +261,8 @@ def main():
     input_string = "floreen"
     scoring_method = CharNgram.Scoring.PERCENTAGE
     ngram_size = 2
-    return_type = CharNgram.BY_STRING
-    return_scores = CharNgram.ALL_SCORES
+    return_type = CharNgram.ReturnBy.STRING
+    return_scores = CharNgram.ReturnScope.ALL
     ranked_matches = CharNgram.compare_list(
         reference_strings,
         input_string,
@@ -284,8 +284,8 @@ def main():
     input_string = "floreen"
     scoring_method = CharNgram.Scoring.MATCHES
     ngram_size = 2
-    return_type = CharNgram.BY_STRING
-    return_scores = CharNgram.ALL_SCORES
+    return_type = CharNgram.ReturnBy.STRING
+    return_scores = CharNgram.ReturnScope.ALL
     ranked_matches = CharNgram.compare_list(
         reference_strings,
         input_string,
@@ -307,8 +307,8 @@ def main():
     input_string = "floreen"
     scoring_method = CharNgram.Scoring.PERCENTAGE
     ngram_size = 2
-    return_type = CharNgram.BY_INDEX
-    return_scores = CharNgram.ALL_SCORES
+    return_type = CharNgram.ReturnBy.INDEX
+    return_scores = CharNgram.ReturnScope.ALL
     ranked_matches = CharNgram.compare_list(
         reference_strings,
         input_string,
@@ -330,8 +330,8 @@ def main():
     input_string = "floreen"
     scoring_method = CharNgram.Scoring.MATCHES
     ngram_size = 2
-    return_type = CharNgram.BY_INDEX
-    return_scores = CharNgram.ALL_SCORES
+    return_type = CharNgram.ReturnBy.INDEX
+    return_scores = CharNgram.ReturnScope.ALL
     ranked_matches = CharNgram.compare_list(
         reference_strings,
         input_string,

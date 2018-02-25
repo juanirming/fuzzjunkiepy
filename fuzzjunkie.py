@@ -1,6 +1,6 @@
 """fuzzjunkie.py
 
-fuzzjunkie v3.0.1 for Python 3
+fuzzjunkie v3.1 for Python 3
 
 fuzzjunkie provides easy-to-use methods for performing fuzzy string searches.
 Strings can be compared to other strings and receive a score based on percentage
@@ -66,20 +66,20 @@ class CharNgram(object):
         Scoring.PERCENTAGE: Enum
             A convenience value for selecting the scoring method.
 
-        Scoring.MATCHES: Enum
+        Scoring.MATCHES:    Enum
             A convenience value for selecting the scoring method.
 
-        BY_STRING:  int
+        ReturnBy.STRING:    Enum
                     A convenience value for selecting the return type.
 
-        BY_INDEX:   int
+        ReturnBy.INDEX:     Enum
                     A convenience value for selecting the return type.
 
-        ALL:        int
+        ReturnScope.ALL:    Enum
                     A convenience value for selecting that all scores should be
                     included in the compare_list() return.
 
-        TOP:        int
+        ReturnScope.TOP:    Enum
                     A convenience value for selecting that only the top scores
                     should be included in the compare_list() return.
 
@@ -101,13 +101,11 @@ class CharNgram(object):
 
     # --------------------------------------------------------------------------
     # Available compare_list() return types.
-    BY_STRING = 0
-    BY_INDEX = 1
+    ReturnBy = Enum("ReturnBy", "STRING INDEX")
 
     # --------------------------------------------------------------------------
     # The compare_list() scoring results to include in return.
-    ALL_SCORES = 0
-    TOP_SCORES = 1
+    ReturnScope = Enum("ReturnScope", "ALL TOP")
 
     # --------------------------------------------------------------------------
     # Attributes to help find match string/index and score of each tuple in
@@ -198,8 +196,8 @@ class CharNgram(object):
         arg_input_string,
         arg_scoring_method=Scoring.PERCENTAGE,
         arg_ngram_size=__DEFAULT_NGRAM_SIZE,
-        arg_return_type=BY_STRING,
-        arg_return_scores=TOP_SCORES
+        arg_return_type=ReturnBy.STRING,
+        arg_return_scores=ReturnScope.TOP
     ):
         """Compares a string against a list of strings.
 
@@ -230,49 +228,47 @@ class CharNgram(object):
                                     __DEFAULT_NGRAM_SIZE.
 
             arg_return_type:        int (optional)
-                                    Desired return type. Valid values are 0
-                                    (passed-in reference strings will be first
-                                    element of each tuple) and 1 (passed-in
-                                    reference string indexes will be first
-                                    element of each tuple). Class attributes
-                                    BY_STRING and BY_INDEX are defined to match
-                                    these integers.
-                                    Defaults to attribute BY_STRING.
+                                    Desired return type. Valid values are
+                                    ReturnBy.STRING (passed-in reference strings
+                                    will be first element of each tuple) and 
+                                    ReturnBy.INDEX (reference string indexes
+                                    will be first element of each tuple).
+                                    Defaults to class attribute ReturnBy.STRING.
 
             arg_return_scores:      int (optional)
                                     Desired scores to include. All scores,
                                     including zeroes, can be requested, or
-                                    simply the top ones. Class attributes
-                                    ALL_SCORES and TOP_SCORES are defined to
-                                    match these integers.
-                                    Defaults to attribute TOP_SCORES.
+                                    simply the top ones. Valid values are
+                                    ReturnScope.ALL and ReturnScope.TOP.
+                                    Defaults to class attribute
+                                    ReturnScope.TOP.
 
         Returns:
             list
             A list of tuples containing a reference string (or its index) and
             its corresponding score. String vs index return types are chosen
             using arg_return_type. Sorted descending by score and ascending by
-            key length (the latter only in case of BY_STRING).
+            key length (the latter only in case of ReturnBy.STRING).
 
-            Example (BY_STRING, Scoring.PERCENTAGE):
+            Example (ReturnBy.STRING, Scoring.PERCENTAGE):
             [
                 ("file.txt", 30.0),
                 ("path/to/another_file.txt", 10.0)
             ]
 
-            Example (BY_STRING, Scoring.MATCHES):
+            Example (ReturnBy.STRING, Scoring.MATCHES):
             [
                 ("file.txt", 2),
                 ("path/to/another_file.txt", 2)
             ]
 
-            Example (BY_INDEX, Scoring.PERCENTAGE):
+            Example (ReturnBy.INDEX, Scoring.PERCENTAGE):
             [
                 (1, 30.0),
                 (0, 10.0)
             ]
 
-            Example (BY_INDEX, Scoring.MATCHES):
+            Example (ReturnBy.INDEX, Scoring.MATCHES):
             [
                 (1, 2),
                 (0, 2)
@@ -291,7 +287,7 @@ class CharNgram(object):
         scores = {}
 
         if arg_reference_list:
-            if arg_return_type == cls.BY_STRING:
+            if arg_return_type == cls.ReturnBy.STRING:
                 for reference_string in arg_reference_list:
                     reference_ngrams = cls.__generate_ngrams(
                         reference_string,
@@ -313,7 +309,7 @@ class CharNgram(object):
                         ),
                         reverse=True
                     )
-            elif arg_return_type == cls.BY_INDEX:
+            elif arg_return_type == cls.ReturnBy.INDEX:
                 for index, reference_string in enumerate(arg_reference_list):
                     reference_ngrams = cls.__generate_ngrams(
                         reference_string,
@@ -336,7 +332,7 @@ class CharNgram(object):
             else:
                 raise CharNgramException("arg_return_type is invalid")
 
-            if arg_return_scores == cls.TOP_SCORES:
+            if arg_return_scores == cls.ReturnScope.TOP:
                 final_scores = [
                     score for score in sorted_scores if (
                         score[cls.SCORE]
@@ -399,8 +395,8 @@ class CharNgram(object):
             arg_input_string,
             arg_scoring_method,
             arg_ngram_size,
-            cls.BY_STRING,
-            cls.ALL_SCORES
+            cls.ReturnBy.STRING,
+            cls.ReturnScope.ALL
         )
 
         if scores[0][cls.SCORE] > 0:
@@ -461,8 +457,8 @@ class CharNgram(object):
             arg_input_string,
             arg_scoring_method,
             arg_ngram_size,
-            cls.BY_INDEX,
-            cls.ALL_SCORES
+            cls.ReturnBy.INDEX,
+            cls.ReturnScope.ALL
         )
 
         if scores[0][cls.SCORE] > 0:
