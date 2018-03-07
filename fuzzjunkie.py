@@ -349,11 +349,11 @@ class CharNgram(object):
     # --------------------------------------------------------------------------
     @classmethod
     def get_best_list_match(
-            cls,
-            arg_reference_list,
-            arg_input_string,
-            arg_scoring_method=Scoring.PERCENTAGE,
-            arg_ngram_size=__DEFAULT_NGRAM_SIZE
+        cls,
+        arg_reference_list,
+        arg_input_string,
+        arg_scoring_method=Scoring.PERCENTAGE,
+        arg_ngram_size=__DEFAULT_NGRAM_SIZE
     ):
         """Compares a string against a list of strings and returns the #1 match.
 
@@ -471,10 +471,10 @@ class CharNgram(object):
     # --------------------------------------------------------------------------
     @classmethod
     def __compare_ngrams(
-            cls,
-            arg_reference_ngrams,
-            arg_input_ngrams,
-            arg_scoring_method=Scoring.PERCENTAGE
+        cls,
+        arg_reference_ngrams,
+        arg_input_ngrams,
+        arg_scoring_method=Scoring.PERCENTAGE
     ):
         """Compares two dicts of ngrams.
 
